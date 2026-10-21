@@ -1,4 +1,7 @@
-﻿build/
+build/
 .gradle/
 local.properties
 reference_chordreader2/
+*.jks
+keystore.properties
+
