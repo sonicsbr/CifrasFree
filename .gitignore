@@ -4,4 +4,5 @@ local.properties
 reference_chordreader2/
 *.jks
 keystore.properties
+*.apk
 
