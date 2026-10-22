@@ -65,6 +65,9 @@ class HomeViewModel(
 
     fun selectSetlist(setlist: SetlistEntity?) {
         selectedSetlist.value = setlist
+        if (setlist != null) {
+            searchQuery.value = ""
+        }
     }
 
     fun createSetlist(name: String) {

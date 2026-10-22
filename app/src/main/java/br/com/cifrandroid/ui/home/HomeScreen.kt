@@ -47,6 +47,7 @@ fun HomeScreen(
     var showFabMenu by remember { mutableStateOf(false) }
     var showNewSetlistDialog by remember { mutableStateOf(false) }
     var showAddSongsToSetlistDialog by remember { mutableStateOf(false) }
+    var dialogSearchQuery by remember { mutableStateOf("") }
 
     // Launchers do Storage Access Framework (SAF)
     val singleTextLauncher = rememberLauncherForActivityResult(
@@ -107,7 +108,10 @@ fun HomeScreen(
                 },
                 actions = {
                     if (selectedSetlist != null) {
-                        IconButton(onClick = { showAddSongsToSetlistDialog = true }) {
+                        IconButton(onClick = {
+                            dialogSearchQuery = ""
+                            showAddSongsToSetlistDialog = true
+                        }) {
                             Icon(Icons.Default.Add, contentDescription = "Adicionar Músicas")
                         }
                         IconButton(onClick = {
@@ -278,24 +282,59 @@ fun HomeScreen(
             onDismissRequest = { showAddSongsToSetlistDialog = false },
             title = { Text("Adicionar Música ao Setlist") },
             text = {
-                LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
-                    val currentSongIds = setlistSongs.map { it.id }.toSet()
-                    val available = songs.filterNot { it.id in currentSongIds }
-
-                    if (available.isEmpty()) {
-                        item {
-                            Text("Todas as músicas já foram adicionadas a este setlist.")
-                        }
-                    } else {
-                        items(available.size) { idx ->
-                            val s = available[idx]
-                            ListItem(
-                                headlineContent = { Text(s.title) },
-                                modifier = Modifier.clickable {
-                                    viewModel.addSongToCurrentSetlist(s.id)
-                                    showAddSongsToSetlistDialog = false
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    OutlinedTextField(
+                        value = dialogSearchQuery,
+                        onValueChange = { dialogSearchQuery = it },
+                        placeholder = { Text("Buscar por título ou trecho...") },
+                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Buscar") },
+                        trailingIcon = {
+                            if (dialogSearchQuery.isNotEmpty()) {
+                                IconButton(onClick = { dialogSearchQuery = "" }) {
+                                    Icon(Icons.Default.Clear, contentDescription = "Limpar")
                                 }
-                            )
+                            }
+                        },
+                        singleLine = true,
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
+                        )
+                    )
+
+                    val currentSongIds = setlistSongs.map { it.id }.toSet()
+                    val available = songs
+                        .filterNot { it.id in currentSongIds }
+                        .filter { song ->
+                            if (dialogSearchQuery.isBlank()) true
+                            else song.title.contains(dialogSearchQuery, ignoreCase = true) ||
+                                 song.content.contains(dialogSearchQuery, ignoreCase = true)
+                        }
+
+                    LazyColumn(modifier = Modifier.heightIn(max = 350.dp)) {
+                        if (songs.none { it.id !in currentSongIds }) {
+                            item {
+                                Text("Todas as músicas já foram adicionadas a este setlist.")
+                            }
+                        } else if (available.isEmpty()) {
+                            item {
+                                Text("Nenhuma música encontrada para '$dialogSearchQuery'.")
+                            }
+                        } else {
+                            items(available.size) { idx ->
+                                val s = available[idx]
+                                ListItem(
+                                    headlineContent = { Text(s.title) },
+                                    modifier = Modifier.clickable {
+                                        viewModel.addSongToCurrentSetlist(s.id)
+                                        showAddSongsToSetlistDialog = false
+                                    }
+                                )
+                            }
                         }
                     }
                 }
