@@ -17,3 +17,6 @@
 
 3. **Autorização Prévia Obrigatória:**
    - Após apresentar a análise de riscos em linguagem simples, **SEMPRE pergunte ao usuário se pode evoluir com a modificação** e aguarde a confirmação dele antes de alterar o código-fonte.
+
+4. **Atualização Obrigatória do CHANGELOG.md Antes de Commits:**
+   - Sempre que houver modificações consolidadas (novas funcionalidades, ajustes ou correções), **ANTES de realizar qualquer commit no Git**, o arquivo `CHANGELOG.md` DEVE ser atualizado com a síntese das alterações no formato de hipertexto padronizado.
