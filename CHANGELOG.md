@@ -9,8 +9,44 @@
 
 | Versão | Data | Tipo | Destaque Principal | Acesso Rápido |
 | :--- | :---: | :---: | :--- | :---: |
+| **[1.1.1-beta](#-111-beta---2026-10-22)** | 22/10/2026 | `Pre-release` | Novo ícone oficial da palheta âmbar, Splash Screen nativa e sincronização de versão | [Ver Detalhes](#-111-beta---2026-10-22) • [Release](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.1-beta) |
 | **[1.1.0-beta](#-110-beta---2026-10-22)** | 22/10/2026 | `Pre-release` | Busca rápida em repertórios e isolamento de diálogo | [Ver Detalhes](#-110-beta---2026-10-22) • [Release](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.0-beta) |
 | **[1.0.0-alpha](#-100-alpha---versão-inicial)** | 21/10/2026 | `Alpha` | Lançamento inicial com modo palco, importação ZIP/TXT e transposição | [Ver Detalhes](#-100-alpha---versão-inicial) • [Release](https://github.com/sonicsbr/CifrasFree/releases/tag/alpha) |
+
+---
+
+## 🚀 [1.1.1-beta] - 2026-10-22
+
+[![Status: Beta](https://img.shields.io/badge/status-pre--release-orange.svg)](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.1-beta)
+[![Version: 1.1.1-beta](https://img.shields.io/badge/version-1.1.1--beta-blue.svg)](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.1-beta)
+[![Platform: Android](https://img.shields.io/badge/platform-Android-3DDC84.svg?logo=android&logoColor=white)](https://github.com/sonicsbr/CifrasFree)
+
+> 📦 **Binário Compilado:** [Download do APK Assinado (CifrasFree-v1.1.1-beta.apk)](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.1-beta)  
+> 🔍 **Comparação com a versão anterior:** [v1.1.0-beta...v1.1.1-beta](https://github.com/sonicsbr/CifrasFree/compare/v1.1.0-beta...v1.1.1-beta)  
+> 🏷️ **Tag Git:** [`v1.1.1-beta`](https://github.com/sonicsbr/CifrasFree/releases/tag/v1.1.1-beta)
+
+### 🌟 Novas Funcionalidades (Added)
+- **Identidade Visual Oficial (Novo Ícone do App):**
+  - Implementação do ícone oficial baseado na palheta âmbar (`design/branding/app_icon_pick_amber.jpg`) em todas as resoluções de tela (`mipmap-mdpi` a `mipmap-xxxhdpi`), com suporte a formatos padrão e arredondado (`ic_launcher` e `ic_launcher_round`).
+  - Atualização do `AndroidManifest.xml` substituindo o ícone provisório pelo ícone definitivo do CifrasFree.
+- **Tela de Abertura Oficial (Splash Screen):**
+  - Criação da tela de abertura com animação suave e logo âmbar sobre fundo `#121212` inspirado em `design/branding/splash_logo_cifrasfree.jpg`.
+  - Configuração do tema nativo (`Theme.CifrasFree`) com cor de fundo `#121212`, eliminando qualquer clarão branco durante a abertura a frio do app.
+  - Navegação configurada para transitar diretamente à `HomeScreen` limpando a pilha de retorno.
+  - *Arquivos criados/modificados:* [`app/src/main/java/br/com/cifrandroid/ui/splash/SplashScreen.kt`](https://github.com/sonicsbr/CifrasFree/blob/master/app/src/main/java/br/com/cifrandroid/ui/splash/SplashScreen.kt), [`app/src/main/java/br/com/cifrandroid/MainActivity.kt`](https://github.com/sonicsbr/CifrasFree/blob/master/app/src/main/java/br/com/cifrandroid/MainActivity.kt) e [`app/src/main/java/br/com/cifrandroid/ui/navigation/Screen.kt`](https://github.com/sonicsbr/CifrasFree/blob/master/app/src/main/java/br/com/cifrandroid/ui/navigation/Screen.kt)
+- **Sincronização Visual da Versão e Novidades:**
+  - A tela de informações (`AboutScreen.kt`) passa a exibir dinamicamente o número da versão vigente via `PackageManager`.
+  - Inclusão do card de **Novidades da Versão**, permitindo que o usuário visualize os destaques recentes diretamente no aplicativo.
+  - *Arquivo modificado:* [`app/src/main/java/br/com/cifrandroid/ui/about/AboutScreen.kt`](https://github.com/sonicsbr/CifrasFree/blob/master/app/src/main/java/br/com/cifrandroid/ui/about/AboutScreen.kt)
+
+### ⚙️ Modificações e Melhorias (Changed)
+- **Versionamento do Aplicativo:**
+  - `versionCode`: incrementado de `2` para `3`
+  - `versionName`: atualizado de `"1.1.0-beta"` para `"1.1.1-beta"`
+  - *Arquivo modificado:* [`app/build.gradle.kts`](https://github.com/sonicsbr/CifrasFree/blob/master/app/build.gradle.kts)
+- **Diretriz de Governança do Agente (Cláusula Pétrea):**
+  - Criação da regra de sincronização obrigatória da tela de informações (`AboutScreen.kt`) a cada ciclo de versionamento.
+  - *Arquivos modificados:* [`AGENTS.md`](https://github.com/sonicsbr/CifrasFree/blob/master/AGENTS.md) e [`.agents/agents/guardiao-arquitetura.md`](https://github.com/sonicsbr/CifrasFree/blob/master/.agents/agents/guardiao-arquitetura.md)
 
 ---
 

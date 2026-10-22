@@ -15,6 +15,7 @@ import br.com.cifrandroid.ui.editor.EditorViewModel
 import br.com.cifrandroid.ui.home.HomeScreen
 import br.com.cifrandroid.ui.home.HomeViewModel
 import br.com.cifrandroid.ui.navigation.Screen
+import br.com.cifrandroid.ui.splash.SplashScreen
 import br.com.cifrandroid.ui.stage.StageScreen
 import br.com.cifrandroid.ui.stage.StageViewModel
 import br.com.cifrandroid.ui.theme.CifrasFreeTheme
@@ -34,8 +35,19 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.Home.route
+                    startDestination = Screen.Splash.route
                 ) {
+                    // Tela 0: Abertura (Splash Screen)
+                    composable(Screen.Splash.route) {
+                        SplashScreen(
+                            onSplashFinished = {
+                                navController.navigate(Screen.Home.route) {
+                                    popUpTo(Screen.Splash.route) { inclusive = true }
+                                }
+                            }
+                        )
+                    }
+
                     // Tela 1: Home (Biblioteca & Setlists)
                     composable(Screen.Home.route) {
                         val homeViewModel: HomeViewModel = viewModel(

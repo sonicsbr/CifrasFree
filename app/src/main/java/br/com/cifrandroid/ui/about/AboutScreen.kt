@@ -9,9 +9,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +25,24 @@ import androidx.compose.ui.unit.sp
 fun AboutScreen(
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
+    val versionName = remember(context) {
+        try {
+            val packageInfo = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    android.content.pm.PackageManager.PackageInfoFlags.of(0)
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                context.packageManager.getPackageInfo(context.packageName, 0)
+            }
+            packageInfo.versionName ?: "1.1.1-beta"
+        } catch (_: Exception) {
+            "1.1.1-beta"
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -72,7 +92,7 @@ fun AboutScreen(
             )
 
             Text(
-                text = "Versão 1.0.0",
+                text = "Versão $versionName",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -107,7 +127,60 @@ fun AboutScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // 3. Card de Destaques
+            // 3. Card de Novidades da Versão Atual
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+                ),
+                shape = MaterialTheme.shapes.large
+            ) {
+                Column(modifier = Modifier.padding(18.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.AutoAwesome,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Novidades da Versão ($versionName)",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    HighlightItem(
+                        icon = Icons.Default.Search,
+                        title = "Busca Rápida em Setlists",
+                        description = "Pesquise músicas em tempo real por título ou letra dentro do diálogo ao montar o repertório."
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    HighlightItem(
+                        icon = Icons.Default.FilterList,
+                        title = "Isolamento de Filtros e Busca",
+                        description = "Navegação independente e abertura limpa de setlists sem interferir no catálogo principal."
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    HighlightItem(
+                        icon = Icons.Default.Palette,
+                        title = "Nova Identidade & Splash Screen",
+                        description = "Ícone oficial da palheta âmbar e tela de abertura com animação suave e transição direta ao palco."
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // 4. Card de Destaques
             OutlinedCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.large

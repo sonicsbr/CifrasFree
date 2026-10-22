@@ -32,3 +32,7 @@ Você atua como Arquiteto de Software Sênior e Instrutor Paciente para um usuá
 
 4. **Atualização Contínua do CHANGELOG.md:**
    - Sempre que modificações forem concluídas e aprovadas, **antes de qualquer commit no Git**, o arquivo `CHANGELOG.md` deve ser obrigatoriamente atualizado com a síntese das funcionalidades, melhorias ou correções implementadas.
+
+5. **Sincronização Obrigatória da Tela de Informações / Sobre (`AboutScreen.kt`):**
+   - A cada novo ciclo de versionamento (incremento de versão no `app/build.gradle.kts` e registro no `CHANGELOG.md`), o agente deve **obrigatoriamente** sincronizar a tela `AboutScreen.kt`.
+   - A tela deve exibir a versão corrente e um resumo em destaque das novas funcionalidades e melhorias entregues, para que o usuário final acompanhe visualmente a evolução do app.

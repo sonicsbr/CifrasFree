@@ -20,3 +20,7 @@
 
 4. **Atualização Obrigatória do CHANGELOG.md Antes de Commits:**
    - Sempre que houver modificações consolidadas (novas funcionalidades, ajustes ou correções), **ANTES de realizar qualquer commit no Git**, o arquivo `CHANGELOG.md` DEVE ser atualizado com a síntese das alterações no formato de hipertexto padronizado.
+
+5. **Sincronização Obrigatória da Tela de Informações (`AboutScreen.kt`) a Cada Versão:**
+   - A cada novo ciclo de versionamento (incremento de `versionCode`/`versionName` no `app/build.gradle.kts` e registro no `CHANGELOG.md`), é **obrigatório** atualizar a tela de informações (`AboutScreen.kt`).
+   - A tela deve refletir fielmente a versão vigente e conter uma seção com o resumo das funcionalidades mais recentes introduzidas, assegurando transparência e informação clara para o usuário final.

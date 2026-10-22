@@ -3,6 +3,7 @@ package br.com.cifrandroid.ui.navigation
 import android.net.Uri
 
 sealed class Screen(val route: String) {
+    data object Splash : Screen("splash")
     data object Home : Screen("home")
 
     data object Stage : Screen("stage/{songId}?setlistId={setlistId}") {
